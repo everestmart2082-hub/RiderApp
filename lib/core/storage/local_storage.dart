@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalStorage {
   static const _key = AppConstants.authTokenKey;
+  // static int count = 0;
 
   static Future<String?> load() async {
     final prefs = await SharedPreferences.getInstance();

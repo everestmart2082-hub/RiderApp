@@ -34,11 +34,13 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       ...data,
       ...files.map((k, v) => MapEntry(
             k,
-            MultipartFile.fromFileSync(v.path),
+            MultipartFile.fromFileSync(v),
           )),
     });
 
-    await dio.post(ApiEndpoints.registerWithDocuments, data: formData);
+    await dio.post(ApiEndpoints.registerWithDocuments, data: formData,options: Options(
+      contentType: 'multipart/form-data',
+    ),);
   }
 
   @override

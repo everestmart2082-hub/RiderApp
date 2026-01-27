@@ -13,6 +13,8 @@ class AuthAuthenticated extends AuthState {
   AuthAuthenticated(this.rider);
 }
 
+class AuthUnauthenticated extends AuthState{}
+
 class AuthSuccess extends AuthState {}
 
 class AuthError extends AuthState {

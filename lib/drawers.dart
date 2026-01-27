@@ -63,35 +63,19 @@ Drawer buildAppDrawer(BuildContext context) {
                 icon: Icons.home,
                 route: '/',
               ),
-              if(!isLoggedIn)
-              tile(
-                title: 'Products',
-                icon: Icons.storefront,
-                route: '/productsGuest',
-              ),
               
 
               // ================= LOGGED IN =================
               if (isLoggedIn) ...[
                 tile(
-                  title: 'Products',
+                  title: 'Dashboard',
                   icon: Icons.storefront,
-                  route: '/products',
-                ),
-                tile(
-                  title: 'Cart',
-                  icon: Icons.shopping_cart,
-                  route: '/cart',
+                  route: '/dashboard',
                 ),
                 tile(
                   title: 'Orders',
                   icon: Icons.receipt_long,
                   route: '/orders',
-                ),
-                tile(
-                  title: 'Addresses',
-                  icon: Icons.location_on,
-                  route: '/addresses',
                 ),
                 tile(
                   title: 'Contact Us',

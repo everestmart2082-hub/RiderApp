@@ -17,6 +17,8 @@ abstract class AuthRepository {
   Future<RiderEntity> getProfile();
 
   Future<void> logout();
+
+  bool isLoggedIn();
 }
 
 
@@ -34,6 +36,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
     await LocalStorage.save(token);
     return rider;
+  }
+
+  @override
+  bool isLoggedIn() {
+    return LocalStorage.load() != "";
   }
 
   @override

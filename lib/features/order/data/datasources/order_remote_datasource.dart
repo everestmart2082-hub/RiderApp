@@ -23,7 +23,7 @@ class OrdersRemoteDataSourceImpl implements OrdersRemoteDataSource {
       options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
 
-    return (response.data as List)
+    return (response.data["orders"] as List)
         .map((e) => OrderModel.fromJson(e))
         .toList();
   }
@@ -35,7 +35,7 @@ class OrdersRemoteDataSourceImpl implements OrdersRemoteDataSource {
       options: Options(headers: {'Authorization': 'Bearer $token'}),
     );
 
-    return (response.data as List)
+    return (response.data["orders"] as List)
         .map((e) => OrderModel.fromJson(e))
         .toList();
   }

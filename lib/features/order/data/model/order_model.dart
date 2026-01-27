@@ -13,10 +13,10 @@ class OrderModel extends OrderEntity {
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
       id: json['_id'],
-      customerName: json['customerName'] ?? '',
-      address: json['deliveryAddress'] ?? '',
-      amount: (json['amount'] ?? 0).toDouble(),
-      status: json['status'] ?? '',
+      customerName: json['customer']['name'] ?? '',
+      address: json['location'] ?? '',
+      amount: (json['totalAmount'] ?? 0).toDouble(),
+      status: json['orderStatus'] ?? '',
       otp: json['otp'] ?? '',
     );
   }

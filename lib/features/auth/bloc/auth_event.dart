@@ -7,6 +7,10 @@ class LoginRequested extends AuthEvent {
   LoginRequested(this.email, this.password);
 }
 
+class AuthCheckRequested extends AuthEvent{
+  
+}
+
 class RegisterRequested extends AuthEvent {
   final Map<String, dynamic> data;
   final Map<String, dynamic> files;

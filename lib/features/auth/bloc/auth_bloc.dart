@@ -1,4 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:riderapp/core/network/api_endpoints.dart';
+import 'package:riderapp/features/auth/data/datasources/auth_remote_datasource.dart';
+import 'package:riderapp/features/auth/domain/entities/rider_entity.dart';
+import 'package:riderapp/features/auth/domain/repository/auth_repository.dart';
 import '../domain/usecases/get_profile_usecases.dart';
 import '../domain/usecases/login_usecases.dart';
 import '../domain/usecases/logout_usecases.dart';
@@ -9,8 +14,15 @@ import 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final LoginUseCase loginUseCase;
   final RegisterUseCase registerUseCase;
-  final GetProfileUseCase getProfileUseCase;
+  final GetAuthProfileUseCase getProfileUseCase;
   final LogoutUseCase logoutUseCase;
+  final authRepository = AuthRepositoryImpl(AuthRemoteDataSourceImpl(Dio(
+    BaseOptions(
+      baseUrl: ApiEndpoints.baseUrl,
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
+    )
+  )));
 
   AuthBloc({
     required this.loginUseCase,
@@ -22,6 +34,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<RegisterRequested>(_register);
     on<LoadProfileRequested>(_loadProfile);
     on<LogoutRequested>(_logout);
+    on<AuthCheckRequested>((event, emit)async {
+      emit(AuthLoading());
+
+      final loggedIn = authRepository.isLoggedIn();
+      if (!loggedIn) {
+        emit(AuthUnauthenticated());
+        return;
+      }
+
+      try {
+        RiderEntity rider = await authRepository.getProfile();
+        emit(AuthAuthenticated(rider));
+      } catch (e) {
+        emit(AuthUnauthenticated());
+      }
+    },);
   }
 
   Future<void> _login(LoginRequested e, Emitter<AuthState> emit) async {
