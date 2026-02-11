@@ -17,6 +17,7 @@ import 'package:riderapp/features/dashboard/bloc/dashboard_bloc.dart';
 import 'package:riderapp/features/dashboard/data/datasources/dashboard_remote_datasource.dart';
 import 'package:riderapp/features/dashboard/domain/repositories/dashboard_repository.dart';
 import 'package:riderapp/features/dashboard/domain/usecases/get_dashboard_usecases.dart';
+import 'package:riderapp/features/dashboard/ui/dashboard_page.dart';
 import 'package:riderapp/features/misc/ui/contact_page.dart';
 import 'package:riderapp/features/misc/ui/settings_page.dart';
 import 'package:riderapp/features/order/bloc/order_bloc.dart';
@@ -176,6 +177,7 @@ class MyApp extends StatelessWidget {
             '/register': (context) => const RegisterPage(),
             '/profile': (context) => const ProfilePage(),
             '/orders': (context) => const OrdersPage(),
+            '/dashboard': (context) => const DashboardPage(),
             '/contact': (context) => const ContactUsPage(),
             '/settings': (context) => const SettingsPage(),
           },

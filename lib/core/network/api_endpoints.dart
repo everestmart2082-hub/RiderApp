@@ -30,4 +30,7 @@ class ApiEndpoints {
 
   //--dashboard
   static const String dashboard = "";
+  static const String riderProfile = "/riders/profile";
+  static const String riderEarnings = "/riders/earnings";
+  static const String riderHistory = "/riders/history";
 }

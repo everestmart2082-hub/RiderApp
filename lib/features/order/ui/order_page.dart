@@ -139,33 +139,69 @@ class _OrderCard extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ElevatedButton(
-            onPressed: () {
-              context.read<OrdersBloc>().add(AcceptOrderEvent(order.id));
-              openMap(order.address);
-            },
-            child: const Text('Accept & Navigate'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  context.read<OrdersBloc>().add(AcceptOrderEvent(order.id));
+                },
+                child: const Text('Accept'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  openMap(order.address);
+                },
+                child: const Text('Navigate'),
+              ),
+            ],
           ),
         ],
       );
     }
 
 
-    if (order.status == 'accepted') {
-      return ElevatedButton(
-        onPressed: () {
-          context.read<OrdersBloc>().add(PickupOrderEvent(order.id));
-        },
-        child: const Text('Pickup'),
+    if (order.status == 'preparing') {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              context.read<OrdersBloc>().add(PickupOrderEvent(order.id));
+            },
+            child: const Text('Pickup'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              openMap(order.address);
+            },
+            child: const Text('Navigate'),
+          ),
+        ]
       );
     }
 
-    if (order.status == 'picked') {
-      return ElevatedButton(
-        onPressed: () {
-          _showOtpDialog(context);
-        },
-        child: const Text('Verify Delivery'),
+    if (order.status == 'out_for_delivery') {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              _showOtpDialog(context);
+            },
+            child: const Text('Verify Delivery'),
+          ),
+          
+          ElevatedButton(
+            onPressed: () {
+              openMap(order.address);
+            },
+            child: const Text('Navigate'),
+          ),
+        ],
       );
     }
 
